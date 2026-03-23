@@ -35,7 +35,7 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between h-20">
           <a href="#hero" className="flex items-center gap-3">
             <img src={logo} alt="Tamsan Event Management" className="h-10 w-auto object-contain" />
-            <span className="font-serif text-xl md:text-2xl tracking-wide text-foreground hidden sm:block">
+            <span className="font-serif text-base sm:text-xl md:text-2xl tracking-wide text-foreground block">
               Tamsan <span className="text-gold">Event Management</span>
             </span>
           </a>
