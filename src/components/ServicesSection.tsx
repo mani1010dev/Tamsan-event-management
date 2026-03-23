@@ -1,8 +1,68 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { X, ZoomIn, ArrowRight } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 import { categories } from "@/lib/eventData";
+
+/* ── 3D Tilt Card Component ── */
+const TiltCard = ({ 
+  children, 
+  onClick, 
+  className = "" 
+}: { 
+  children: React.ReactNode; 
+  onClick: () => void; 
+  className?: string;
+}) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onClick={onClick}
+      style={{
+        rotateY,
+        rotateX,
+        transformStyle: "preserve-3d",
+      }}
+      className={`relative cursor-pointer transition-transform duration-200 ease-out ${className}`}
+    >
+      <div 
+        style={{ transform: "translateZ(30px)" }} 
+        className="w-full h-full"
+      >
+        {children}
+      </div>
+    </motion.div>
+  );
+};
 
 const ServicesSection = () => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -10,69 +70,96 @@ const ServicesSection = () => {
 
   const selected = categories.find((c) => c.id === selectedId);
 
+  // Define Bento grid spans for 14 items
+  const getBentoSpans = (index: number) => {
+    const spans = [
+      { col: "sm:col-span-2", row: "sm:row-span-2" }, // 0: Wedding (Featured)
+      { col: "sm:col-span-1", row: "sm:row-span-1" }, // 1: Corporate
+      { col: "sm:col-span-1", row: "sm:row-span-1" }, // 2: Birthday
+      { col: "sm:col-span-2", row: "sm:row-span-1" }, // 3: Engagement (Landscape)
+      { col: "sm:col-span-1", row: "sm:row-span-1" }, // 4: Reception
+      { col: "sm:col-span-1", row: "sm:row-span-2" }, // 5: Puberty (Portrait)
+      { col: "sm:col-span-2", row: "sm:row-span-2" }, // 6: Baby Entry (Featured)
+      { col: "sm:col-span-1", row: "sm:row-span-1" }, // 7: Couple Entry
+      { col: "sm:col-span-2", row: "sm:row-span-1" }, // 8: Photography (Landscape)
+      { col: "sm:col-span-1", row: "sm:row-span-1" }, // 9: Surprise
+      { col: "sm:col-span-1", row: "sm:row-span-1" }, // 10: Cakes
+      { col: "sm:col-span-1", row: "sm:row-span-1" }, // 11: Stalls
+      { col: "sm:col-span-1", row: "sm:row-span-1" }, // 12: Gaming
+      { col: "sm:col-span-1", row: "sm:row-span-1" }, // 13: Catering
+    ];
+    return spans[index] || { col: "sm:col-span-1", row: "sm:row-span-1" };
+  };
+
   return (
     <section id="services" className="py-24 md:py-32 bg-secondary">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <ScrollReveal>
           <div className="text-center mb-16">
             <p className="text-gold text-sm tracking-[0.3em] uppercase mb-4 font-medium">
-              What We Offer
+              Elite Experiences
             </p>
             <h2 className="font-serif text-3xl md:text-5xl text-foreground mb-6 text-balance leading-[1.15]">
-              Our Services
+              Our Premium Services
             </h2>
             <div className="section-divider mx-auto mb-6" />
             <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed">
-              Select a service to discover what we can create for your special occasion.
+              Experience events redefined through our signature Bento collection.
             </p>
           </div>
         </ScrollReveal>
 
-        {/* Service Cards Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
-          {categories.map((service, i) => (
-            <ScrollReveal key={service.id} delay={i * 0.05}>
-              <motion.button
-                onClick={() => setSelectedId(service.id)}
-                className="group relative aspect-[3/4] w-full overflow-hidden cursor-pointer"
-                whileHover={{ y: -8, scale: 1.02 }}
-                whileTap={{ scale: 0.96 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              >
-                <img
-                  src={service.image}
-                  alt={service.name}
-                  className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.15]"
-                  loading="lazy"
-                />
-                {/* Animated gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+        {/* Bento Service Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 auto-rows-[200px] gap-4 md:gap-5">
+          {categories.slice(0, 14).map((service, i) => {
+            const { col, row } = getBentoSpans(i);
+            return (
+              <ScrollReveal key={service.id} delay={i * 0.05} className={`${col} ${row}`}>
+                <TiltCard onClick={() => setSelectedId(service.id)} className="h-full">
+                  <div className="group relative w-full h-full overflow-hidden border border-gold/10 hover:border-gold/30 shadow-sm hover:shadow-xl transition-all duration-500">
+                    <img
+                      src={service.image}
+                      alt={service.name}
+                      className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
+                      loading="lazy"
+                    />
+                    
+                    {/* Dark gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
 
-                {/* Shimmer sweep on hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-[1200ms] ease-in-out" />
-                </div>
+                    {/* Shimmer sweep */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-[1500ms] ease-in-out" />
+                    </div>
 
-                {/* Bottom content with slide-up animation */}
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <p className="text-sm font-medium tracking-wide text-white group-hover:text-gold transition-colors duration-300">
-                    {service.name}
-                  </p>
-                  <div className="flex items-center gap-1 mt-1 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 delay-100">
-                    <span className="text-[11px] text-gold/80 tracking-wider uppercase">View</span>
-                    <ArrowRight size={12} className="text-gold/80" />
+                    {/* Brand Info */}
+                    <div className="absolute bottom-0 left-0 right-0 p-5">
+                      <p className="text-xs text-gold font-medium tracking-widest uppercase mb-1 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                        {service.id.charAt(0).toUpperCase() + service.id.slice(1)}
+                      </p>
+                      <h4 className="text-base md:text-lg font-serif text-white leading-tight">
+                        {service.name}
+                      </h4>
+                      <div className="flex items-center gap-2 mt-2 md:mt-3 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 delay-75">
+                        <span className="text-[10px] text-white/70 tracking-widest uppercase">Explore</span>
+                        <ArrowRight size={14} className="text-gold" />
+                      </div>
+                    </div>
+
+                    {/* Corner accent */}
+                    <div className="absolute top-0 right-0 w-8 h-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute top-3 right-3 w-[1px] h-3 bg-gold/50" />
+                      <div className="absolute top-3 right-3 w-3 h-[1px] bg-gold/50" />
+                    </div>
                   </div>
-                </div>
-
-                {/* Gold border glow on hover */}
-                <div className="absolute inset-0 border-2 border-transparent group-hover:border-gold/40 transition-colors duration-500" />
-              </motion.button>
-            </ScrollReveal>
-          ))}
+                </TiltCard>
+              </ScrollReveal>
+            );
+          })}
         </div>
       </div>
 
-      {/* Popup Modal */}
+      {/* Popup Modal (90%) */}
       <AnimatePresence>
         {selected && (
           <motion.div
@@ -80,161 +167,134 @@ const ServicesSection = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 flex items-center justify-center"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6"
           >
             {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
-              className="absolute inset-0 bg-black/70 backdrop-blur-md"
+              className="absolute inset-0 bg-black/80 backdrop-blur-xl"
               onClick={() => setSelectedId(null)}
             />
 
             {/* Popup Container */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 40 }}
+              initial={{ opacity: 0, scale: 0.9, y: 30 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.92, y: 30 }}
-              transition={{ type: "spring", stiffness: 260, damping: 22, mass: 0.8 }}
-              className="relative w-[92vw] md:w-[90vw] h-[88vh] md:h-[90vh] bg-background overflow-hidden z-10"
-              style={{ boxShadow: "0 25px 80px -12px rgba(0,0,0,0.5), 0 0 40px -8px rgba(212,175,55,0.15)" }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ type: "spring", stiffness: 280, damping: 25 }}
+              className="relative w-full max-w-[95vw] md:max-w-[90vw] h-[90vh] bg-background overflow-hidden z-10 border border-gold/20"
+              style={{ boxShadow: "0 0 60px rgba(0,0,0,0.8)" }}
             >
-              {/* Gold accent line at top */}
-              <motion.div
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
-                className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gold to-transparent origin-center"
-              />
+              <div className="h-full overflow-y-auto px-6 py-8 md:px-16 md:py-16">
+                {/* Close Button */}
+                <motion.button
+                  onClick={() => setSelectedId(null)}
+                  whileHover={{ rotate: 90 }}
+                  className="absolute top-6 right-6 md:top-10 md:right-10 w-12 h-12 flex items-center justify-center border border-border hover:border-gold hover:bg-gold/10 transition-all z-20"
+                >
+                  <X size={20} />
+                </motion.button>
 
-              <div className="h-full overflow-y-auto p-6 md:p-10">
-                {/* Header */}
-                <div className="flex items-start justify-between mb-6">
-                  <div>
+                {/* Header Decoration */}
+                <motion.div 
+                  initial={{ width: 0 }}
+                  animate={{ width: 100 }}
+                  className="h-[1px] bg-gold/40 mb-8"
+                />
+
+                <div className="grid lg:grid-cols-12 gap-10 md:gap-20">
+                  {/* Left: Content */}
+                  <div className="lg:col-span-5 flex flex-col justify-center">
                     <motion.p
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.15, duration: 0.4 }}
-                      className="text-gold text-xs tracking-[0.3em] uppercase mb-2 font-medium"
+                      className="text-gold text-xs tracking-[0.4em] uppercase mb-4 font-semibold"
                     >
-                      Service
+                      Refined Quality
                     </motion.p>
                     <motion.h3
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.2, duration: 0.5, type: "spring", stiffness: 200 }}
-                      className="font-serif text-2xl md:text-4xl text-foreground"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 }}
+                      className="font-serif text-3xl md:text-5xl lg:text-6xl text-foreground mb-8 leading-tight"
                     >
                       {selected.name}
                     </motion.h3>
-                    {/* Animated underline */}
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: 60 }}
-                      transition={{ delay: 0.4, duration: 0.5, ease: "easeOut" }}
-                      className="h-[2px] bg-gold/60 mt-3"
-                    />
-                  </div>
-                  <motion.button
-                    initial={{ opacity: 0, rotate: -90 }}
-                    animate={{ opacity: 1, rotate: 0 }}
-                    transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-                    onClick={() => setSelectedId(null)}
-                    whileHover={{ scale: 1.1, rotate: 90 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center border border-border hover:border-gold hover:bg-gold/10 transition-all duration-300 shrink-0"
-                  >
-                    <X size={18} />
-                  </motion.button>
-                </div>
-
-                {/* Description */}
-                <motion.p
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.25, duration: 0.5 }}
-                  className="text-muted-foreground leading-relaxed mb-8 max-w-3xl text-sm md:text-base"
-                >
-                  {selected.description}
-                </motion.p>
-
-                {/* Photo Gallery Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-                  {selected.gallery.map((img, idx) => (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, scale: 0.85, y: 30 }}
-                      animate={{ opacity: 1, scale: 1, y: 0 }}
-                      transition={{
-                        delay: 0.3 + idx * 0.12,
-                        duration: 0.5,
-                        type: "spring",
-                        stiffness: 200,
-                        damping: 18,
-                      }}
-                      whileHover={{ y: -6, transition: { duration: 0.25 } }}
-                      className="group cursor-pointer overflow-hidden"
-                      onClick={() => setLightboxImage(img)}
+                    <div className="h-[2px] w-20 bg-gold mb-10" />
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.2 }}
+                      className="text-muted-foreground text-base md:text-lg leading-relaxed"
                     >
-                      <div className="relative overflow-hidden aspect-[4/3]">
-                        <img
-                          src={img}
-                          alt={`${selected.name} ${idx + 1}`}
-                          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                          loading="lazy"
-                        />
-                        {/* Hover overlay with zoom icon */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-all duration-400 flex items-center justify-center">
-                          <motion.div
-                            initial={false}
-                            className="w-10 h-10 rounded-full bg-gold/90 flex items-center justify-center opacity-0 group-hover:opacity-100 scale-75 group-hover:scale-100 transition-all duration-300"
-                          >
-                            <ZoomIn size={16} className="text-accent-foreground" />
-                          </motion.div>
-                        </div>
-                        {/* Bottom gold shine */}
-                        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gold/0 group-hover:bg-gold/60 transition-colors duration-500" />
-                      </div>
-                    </motion.div>
-                  ))}
+                      {selected.description}
+                    </motion.p>
+                  </div>
+
+                  {/* Right: Gallery */}
+                  <div className="lg:col-span-7">
+                    <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
+                      {selected.gallery.map((img, idx) => (
+                        <motion.div
+                          key={idx}
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: 0.3 + idx * 0.1, type: "spring" }}
+                          whileHover={{ y: -5 }}
+                          className="group relative cursor-pointer overflow-hidden aspect-[4/3] bg-muted/20 border border-border"
+                          onClick={() => setLightboxImage(img)}
+                        >
+                          <img
+                            src={img}
+                            alt={`${selected.name} ${idx + 1}`}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            loading="lazy"
+                          />
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                            <ZoomIn size={24} className="text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
+              </div>
+
+              {/* Decorative side text */}
+              <div className="absolute bottom-10 right-10 pointer-events-none hidden lg:block">
+                <span className="text-[120px] font-serif text-foreground/5 leading-none select-none uppercase tracking-tighter">
+                  {selected.id}
+                </span>
               </div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Lightbox */}
+      {/* Lightbox (Remains the same but with spring) */}
       <AnimatePresence>
         {lightboxImage && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[60] bg-black/95 flex items-center justify-center p-8 cursor-pointer"
+            className="fixed inset-0 z-[60] bg-black/98 flex items-center justify-center p-6 cursor-pointer"
             onClick={() => setLightboxImage(null)}
           >
             <motion.img
-              initial={{ scale: 0.85, opacity: 0 }}
+              initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.85, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 250, damping: 22 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 220, damping: 20 }}
               src={lightboxImage}
               alt="Gallery preview"
               className="max-w-full max-h-full object-contain"
             />
-            <motion.button
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              whileHover={{ scale: 1.1, rotate: 90 }}
-              className="absolute top-6 right-6"
-            >
-              <X size={28} className="text-primary-foreground" />
-            </motion.button>
+            <button className="absolute top-6 right-6">
+              <X size={32} className="text-white" />
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
