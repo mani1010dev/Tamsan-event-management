@@ -26,11 +26,10 @@ const Navbar = () => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
             ? "bg-background/95 backdrop-blur-sm shadow-[0_1px_0_hsl(var(--border))]"
             : "bg-transparent"
-        }`}
+          }`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between h-20">
           <a href="#hero" className="flex items-center gap-3">
@@ -41,8 +40,13 @@ const Navbar = () => {
               style={{ filter: "drop-shadow(0 0 8px rgba(212, 175, 55, 0.7)) drop-shadow(0 0 20px rgba(212, 175, 55, 0.3))" }}
             />
             <span
-              className="font-serif font-bold text-base sm:text-xl md:text-2xl tracking-wide text-foreground block"
-              style={{ textShadow: "0 0 10px rgba(212, 175, 55, 0.4), 0 0 20px rgba(212, 175, 55, 0.15)" }}
+              className="text-base sm:text-xl md:text-2xl tracking-widest uppercase text-foreground block"
+              style={{
+                fontFamily: "'Cinzel', serif",
+                fontWeight: 800,
+                letterSpacing: "0.12em",
+                textShadow: "0 0 12px rgba(212, 175, 55, 0.5), 0 0 24px rgba(212, 175, 55, 0.2)"
+              }}
             >
               Tamsan <span className="text-gold">Event Management</span>
             </span>
