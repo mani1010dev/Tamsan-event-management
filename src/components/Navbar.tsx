@@ -34,8 +34,16 @@ const Navbar = () => {
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between h-20">
           <a href="#hero" className="flex items-center gap-3">
-            <img src={logo} alt="Tamsan Event Management" className="h-10 w-auto object-contain" />
-            <span className="font-serif text-base sm:text-xl md:text-2xl tracking-wide text-foreground block">
+            <img
+              src={logo}
+              alt="Tamsan Event Management"
+              className="h-14 w-auto object-contain"
+              style={{ filter: "drop-shadow(0 0 8px rgba(212, 175, 55, 0.7)) drop-shadow(0 0 20px rgba(212, 175, 55, 0.3))" }}
+            />
+            <span
+              className="font-serif font-bold text-base sm:text-xl md:text-2xl tracking-wide text-foreground block"
+              style={{ textShadow: "0 0 10px rgba(212, 175, 55, 0.4), 0 0 20px rgba(212, 175, 55, 0.15)" }}
+            >
               Tamsan <span className="text-gold">Event Management</span>
             </span>
           </a>

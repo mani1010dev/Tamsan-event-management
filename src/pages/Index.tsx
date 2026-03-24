@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ServicesSection from "@/components/ServicesSection";
 import MemoryTimeline from "@/components/MemoryTimeline";
+import GoogleReviews from "@/components/GoogleReviews";
 import ContactSection from "@/components/ContactSection";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import Footer from "@/components/Footer";
@@ -13,6 +14,7 @@ const Index = () => {
       <HeroSection />
       <ServicesSection />
       <MemoryTimeline />
+      <GoogleReviews />
       <ContactSection />
       <Footer />
       <WhatsAppButton />

@@ -133,13 +133,13 @@ const ContactSection = () => {
                 <div>
                   <p className="text-xs text-muted-foreground uppercase tracking-wider mb-0.5">Location</p>
                   <p className="text-foreground font-medium text-sm leading-relaxed">
-                    53A, 3, Venmani, 2nd St, Nethaji Nagar, Ramapuram, Tamil Nadu 600089
+                    3/53a, Venmani, 2nd St, Nethaji Nagar,<br /> Ramapuram, Tamil Nadu 600089
                   </p>
                 </div>
               </div>
             </div>
           </ScrollReveal>
-        </div>
+        </div>  
       </div>
     </section>
   );
