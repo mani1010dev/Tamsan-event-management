@@ -31,22 +31,17 @@ const Navbar = () => {
             : "bg-transparent"
           }`}
       >
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between h-20">
-          <a href="#hero" className="flex items-center gap-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex items-center justify-between h-20">
+          <a href="#hero" className="flex items-center gap-2 sm:gap-3">
             <img
               src={logo}
               alt="Tamsan Event Management"
-              className="h-14 w-auto object-contain"
+              className="h-10 sm:h-14 w-auto object-contain flex-shrink-0"
               style={{ filter: "drop-shadow(0 0 8px rgba(212, 175, 55, 0.7)) drop-shadow(0 0 20px rgba(212, 175, 55, 0.3))" }}
             />
             <span
-              className="text-base sm:text-xl md:text-2xl tracking-widest uppercase text-foreground block"
-              style={{
-                fontFamily: "'Cinzel', serif",
-                fontWeight: 800,
-                letterSpacing: "0.12em",
-                textShadow: "0 0 12px rgba(212, 175, 55, 0.5), 0 0 24px rgba(212, 175, 55, 0.2)"
-              }}
+              className="font-serif font-bold text-[14px] xs:text-base sm:text-xl md:text-2xl tracking-tight sm:tracking-wide text-foreground whitespace-nowrap"
+              style={{ textShadow: "0 0 10px rgba(212, 175, 55, 0.4), 0 0 20px rgba(212, 175, 55, 0.15)" }}
             >
               Tamsan <span className="text-gold">Event Management</span>
             </span>
