@@ -14,8 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        serif: ["Plus Jakarta Sans", "sans-serif"],
+        serif: ["Cormorant Garamond", "serif"],
         sans: ["Inter", "sans-serif"],
+        branding: ["Cinzel", "serif"],
       },
       colors: {
         border: "hsl(var(--border))",

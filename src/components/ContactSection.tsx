@@ -8,12 +8,14 @@ const ContactSection = () => {
     name: "",
     phone: "",
     eventType: "",
+    date: "",
+    time: "",
     message: "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const whatsappMsg = `Hi! I'm ${formData.name}. I'm interested in ${formData.eventType}. ${formData.message}`;
+    const whatsappMsg = `Hi! I'm ${formData.name}. I'm interested in ${formData.eventType} on ${formData.date} at ${formData.time}. ${formData.message}`;
     window.open(`https://wa.me/916369474941?text=${encodeURIComponent(whatsappMsg)}`, "_blank");
   };
 
@@ -65,6 +67,26 @@ const ContactSection = () => {
                       <option key={cat.id} value={cat.name}>{cat.name}</option>
                     ))}
                   </select>
+                </div>
+                <div className="grid grid-cols-2 gap-5">
+                  <div>
+                    <input
+                      type="date"
+                      value={formData.date}
+                      onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                      required
+                      className="w-full px-4 py-3.5 bg-background border border-border text-foreground text-sm focus:outline-none focus:border-gold transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <input
+                      type="time"
+                      value={formData.time}
+                      onChange={(e) => setFormData({ ...formData, time: e.target.value })}
+                      required
+                      className="w-full px-4 py-3.5 bg-background border border-border text-foreground text-sm focus:outline-none focus:border-gold transition-colors"
+                    />
+                  </div>
                 </div>
                 <div>
                   <textarea
@@ -139,7 +161,23 @@ const ContactSection = () => {
               </div>
             </div>
           </ScrollReveal>
-        </div>  
+        </div>
+
+        {/* Map Section */}
+        <ScrollReveal direction="up" className="mt-16">
+          <div className="w-full h-[400px] bg-background border border-border overflow-hidden grayscale-[0.2] hover:grayscale-0 transition-all duration-700">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.029900454043!2d80.18313909999999!3d13.033767899999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a526738b5c7bf27%3A0x5af81af8d63d44b4!2sTamsan%20event%20management!5e0!3m2!1sen!2sin!4v1774437060104!5m2!1sen!2sin"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen={true}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Tamsan Event Management Location"
+            ></iframe>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );

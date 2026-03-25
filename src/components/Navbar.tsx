@@ -31,20 +31,25 @@ const Navbar = () => {
           : "bg-transparent"
           }`}
       >
-        <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-12 flex items-center justify-between h-20">
-          <a href="#hero" className="flex items-center gap-1.5 sm:gap-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex items-center justify-between h-[110px] md:h-20">
+          <a href="#hero" className="flex items-center gap-4 sm:gap-4 font-serif">
             <img
               src={logo}
               alt="Tamsan Event Management"
-              className="h-14 sm:h-16 w-auto object-contain flex-shrink-0"
-              style={{ filter: "drop-shadow(0 0 8px rgba(212, 175, 55, 0.7)) drop-shadow(0 0 20px rgba(212, 175, 55, 0.3))" }}
+              className="h-[84px] md:h-16 w-auto object-contain flex-shrink-0"
+              style={{ filter: "drop-shadow(0 0 10px rgba(212, 175, 55, 0.8))" }}
             />
-            <span
-              className="font-serif font-bold text-base xs:text-lg sm:text-xl md:text-2xl tracking-tighter sm:tracking-wide text-foreground whitespace-nowrap"
-              style={{ textShadow: "0 0 10px rgba(212, 175, 55, 0.4), 0 0 20px rgba(212, 175, 55, 0.15)" }}
-            >
-              Tamsan <span className="text-gold">Event Management</span>
-            </span>
+            <div className="flex flex-col md:flex-row md:items-baseline md:gap-4 font-serif">
+              <span 
+                className="font-branding text-3xl md:text-3xl font-bold tracking-tight text-foreground whitespace-nowrap leading-none"
+                style={{ textShadow: "0 0 10px rgba(212, 175, 55, 0.4)" }}
+              >
+                Tamsan
+              </span>
+              <span className="text-xs md:text-2xl font-bold md:tracking-wide text-gold uppercase tracking-[0.2em] md:normal-case md:tracking-normal mt-1.5 md:mt-0 whitespace-nowrap font-serif">
+                Event Management
+              </span>
+            </div>
           </a>
 
           <div className="hidden md:flex items-center gap-10">
