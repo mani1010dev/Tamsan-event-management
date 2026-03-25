@@ -5,6 +5,7 @@ import logo from "@/assets/logo.png";
 
 const navLinks = [
   { label: "Home", href: "#hero" },
+  { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
   { label: "Journey", href: "#timeline" },
   { label: "Contact", href: "#contact" },
@@ -41,8 +42,16 @@ const Navbar = () => {
             />
             <div className="flex flex-col md:flex-row md:items-baseline md:gap-4 font-serif">
               <span
-                className="font-branding text-3xl md:text-3xl font-bold tracking-tight text-gold whitespace-nowrap leading-none"
-                style={{ textShadow: "0 0 10px rgba(212, 175, 55, 0.4)" }}
+                className="font-branding text-3xl md:text-3xl font-bold tracking-tight whitespace-nowrap leading-none"
+                style={{
+                  background: "linear-gradient(135deg, hsl(38 50% 40%), hsl(38 45% 60%), hsl(38 40% 75%), hsl(38 45% 60%), hsl(38 50% 40%))",
+                  backgroundSize: "200% auto",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  textShadow: "none",
+                  filter: "drop-shadow(0 0 8px rgba(212, 175, 55, 0.5)) drop-shadow(0 0 20px rgba(212, 175, 55, 0.2))",
+                }}
               >
                 Tamsan
               </span>
