@@ -27,8 +27,8 @@ const Navbar = () => {
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-            ? "bg-background/95 backdrop-blur-sm shadow-[0_1px_0_hsl(var(--border))]"
-            : "bg-transparent"
+          ? "bg-background/95 backdrop-blur-sm shadow-[0_1px_0_hsl(var(--border))]"
+          : "bg-transparent"
           }`}
       >
         <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-12 flex items-center justify-between h-20">
@@ -36,7 +36,7 @@ const Navbar = () => {
             <img
               src={logo}
               alt="Tamsan Event Management"
-              className="h-11 sm:h-14 w-auto object-contain flex-shrink-0"
+              className="h-14 sm:h-16 w-auto object-contain flex-shrink-0"
               style={{ filter: "drop-shadow(0 0 8px rgba(212, 175, 55, 0.7)) drop-shadow(0 0 20px rgba(212, 175, 55, 0.3))" }}
             />
             <span
