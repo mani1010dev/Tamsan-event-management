@@ -108,10 +108,10 @@ const HeroSection = () => {
         initial={{ scaleX: 0 }}
         animate={{ scaleX: 1 }}
         transition={{ duration: 1.2, delay: 0.3, ease }}
-        className="absolute top-20 left-0 right-0 h-[1px] bg-gold/25 origin-left"
+        className="absolute top-24 md:top-20 left-0 right-0 h-[1px] bg-gold/25 origin-left"
       />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-4 min-h-screen items-center pt-24 pb-20">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-4 min-h-screen items-center pt-[140px] md:pt-24 pb-20">
         {/* Left: Text */}
         <div className="flex flex-col justify-center z-10">
           <motion.p
