@@ -41,7 +41,7 @@ const Navbar = () => {
             />
             <div className="flex flex-col md:flex-row md:items-baseline md:gap-4 font-serif">
               <span
-                className="font-branding text-3xl md:text-3xl font-bold tracking-tight text-foreground whitespace-nowrap leading-none"
+                className="font-branding text-3xl md:text-3xl font-bold tracking-tight text-gold whitespace-nowrap leading-none"
                 style={{ textShadow: "0 0 10px rgba(212, 175, 55, 0.4)" }}
               >
                 Tamsan
