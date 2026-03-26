@@ -187,30 +187,28 @@ const ServicesSection = () => {
               className="relative w-full max-w-[95vw] md:max-w-[90vw] h-[90vh] bg-background overflow-hidden z-10 border border-gold/20"
               style={{ boxShadow: "0 0 60px rgba(0,0,0,0.8)" }}
             >
-              <div className="h-full overflow-y-auto px-6 py-8 md:px-16 md:py-16">
+              <div className="flex flex-col h-full w-full">
                 {/* Close Button */}
                 <motion.button
                   onClick={() => setSelectedId(null)}
                   whileHover={{ rotate: 90 }}
-                  className="absolute top-6 right-6 md:top-10 md:right-10 w-12 h-12 flex items-center justify-center border border-border hover:border-gold hover:bg-gold/10 transition-all z-20"
+                  className="absolute top-6 right-6 md:top-10 md:right-10 w-12 h-12 flex items-center justify-center border border-border hover:border-gold hover:bg-gold/10 transition-all z-50 bg-background/50 backdrop-blur-sm shadow-sm"
                 >
                   <X size={20} />
                 </motion.button>
 
-                {/* Header Decoration */}
-                <motion.div 
-                  initial={{ width: 0 }}
-                  animate={{ width: 100 }}
-                  className="h-[1px] bg-gold/40 mb-8"
-                />
-
-                <div className="grid lg:grid-cols-12 gap-10 md:gap-20">
-                  {/* Left: Content */}
-                  <div className="lg:col-span-5 flex flex-col justify-center">
+                {/* Stationary Header */}
+                <div className="shrink-0 px-6 pt-8 pb-6 md:px-16 md:pt-14 md:pb-8 border-b border-border/50 bg-background/95 backdrop-blur-md z-40 relative">
+                  <motion.div 
+                    initial={{ width: 0 }}
+                    animate={{ width: 100 }}
+                    className="h-[1px] bg-gold/40 mb-6"
+                  />
+                  <div className="max-w-4xl pr-12 md:pr-0">
                     <motion.p
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      className="text-gold text-xs tracking-[0.4em] uppercase mb-4 font-semibold"
+                      className="text-gold text-[10px] md:text-xs tracking-[0.4em] uppercase mb-3 font-semibold"
                     >
                       Refined Quality
                     </motion.p>
@@ -218,46 +216,45 @@ const ServicesSection = () => {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.1 }}
-                      className="font-serif text-3xl md:text-5xl lg:text-6xl text-foreground mb-8 leading-tight"
+                      className="font-serif text-3xl md:text-5xl lg:text-5xl text-foreground mb-4 leading-tight"
                     >
                       {selected.name}
                     </motion.h3>
-                    <div className="h-[2px] w-20 bg-gold mb-10" />
                     <motion.p
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.2 }}
-                      className="text-muted-foreground text-base md:text-lg leading-relaxed"
+                      className="text-muted-foreground text-sm md:text-base leading-relaxed"
                     >
                       {selected.description}
                     </motion.p>
                   </div>
+                </div>
 
-                  {/* Right: Gallery */}
-                  <div className="lg:col-span-7">
-                    <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
-                      {selected.gallery.map((img, idx) => (
-                        <motion.div
-                          key={idx}
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: 0.3 + idx * 0.1, type: "spring" }}
-                          whileHover={{ y: -5 }}
-                          className="group relative cursor-pointer overflow-hidden aspect-[4/3] bg-muted/20 border border-border"
-                          onClick={() => setLightboxImage(img)}
-                        >
-                          <img
-                            src={img}
-                            alt={`${selected.name} ${idx + 1}`}
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                            loading="lazy"
-                          />
-                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
-                            <ZoomIn size={24} className="text-white opacity-0 group-hover:opacity-100 transition-opacity" />
-                          </div>
-                        </motion.div>
-                      ))}
-                    </div>
+                {/* Scrolling Gallery */}
+                <div className="flex-1 overflow-y-auto px-6 py-8 md:px-16 md:py-10">
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                    {selected.gallery.map((img, idx) => (
+                      <motion.div
+                        key={idx}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.1 + idx * 0.05, type: "spring" }}
+                        whileHover={{ y: -5 }}
+                        className="group relative cursor-pointer overflow-hidden aspect-[4/3] bg-muted/20 border border-border"
+                        onClick={() => setLightboxImage(img)}
+                      >
+                        <img
+                          src={img}
+                          alt={`${selected.name} ${idx + 1}`}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                          <ZoomIn size={24} className="text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                        </div>
+                      </motion.div>
+                    ))}
                   </div>
                 </div>
               </div>
