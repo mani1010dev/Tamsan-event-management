@@ -73,20 +73,16 @@ const ServicesSection = () => {
   // Define Bento grid spans for 14 items
   const getBentoSpans = (index: number) => {
     const spans = [
-      { col: "sm:col-span-2", row: "sm:row-span-2" }, // 0: Wedding (Featured)
-      { col: "sm:col-span-1", row: "sm:row-span-1" }, // 1: Corporate
-      { col: "sm:col-span-1", row: "sm:row-span-1" }, // 2: Birthday
-      { col: "sm:col-span-2", row: "sm:row-span-1" }, // 3: Engagement (Landscape)
-      { col: "sm:col-span-1", row: "sm:row-span-1" }, // 4: Reception
-      { col: "sm:col-span-1", row: "sm:row-span-2" }, // 5: Puberty (Portrait)
-      { col: "sm:col-span-2", row: "sm:row-span-2" }, // 6: Baby Entry (Featured)
-      { col: "sm:col-span-1", row: "sm:row-span-1" }, // 7: Couple Entry
-      { col: "sm:col-span-2", row: "sm:row-span-1" }, // 8: Photography (Landscape)
-      { col: "sm:col-span-1", row: "sm:row-span-1" }, // 9: Surprise
-      { col: "sm:col-span-1", row: "sm:row-span-1" }, // 10: Cakes
-      { col: "sm:col-span-1", row: "sm:row-span-1" }, // 11: Stalls
-      { col: "sm:col-span-1", row: "sm:row-span-1" }, // 12: Gaming
-      { col: "sm:col-span-1", row: "sm:row-span-1" }, // 13: Catering
+      { col: "sm:col-span-2", row: "sm:row-span-2" }, // 0: Wedding & Reception
+      { col: "sm:col-span-1", row: "sm:row-span-1" }, // 1: Birthday
+      { col: "sm:col-span-1", row: "sm:row-span-1" }, // 2: Engagement 
+      { col: "sm:col-span-2", row: "sm:row-span-1" }, // 3: Corporate 
+      { col: "sm:col-span-2", row: "sm:row-span-2" }, // 4: Photography 
+      { col: "sm:col-span-2", row: "sm:row-span-1" }, // 5: Catering & Stalls
+      { col: "sm:col-span-2", row: "sm:row-span-1" }, // 6: Cakes 
+      { col: "sm:col-span-2", row: "sm:row-span-2" }, // 7: Couple & Baby Entry
+      { col: "sm:col-span-2", row: "sm:row-span-1" }, // 8: Gaming
+      { col: "sm:col-span-2", row: "sm:row-span-1" }, // 9: Puberty
     ];
     return spans[index] || { col: "sm:col-span-1", row: "sm:row-span-1" };
   };

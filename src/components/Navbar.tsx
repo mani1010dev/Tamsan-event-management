@@ -28,8 +28,8 @@ const Navbar = () => {
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-          ? "bg-background/95 backdrop-blur-sm shadow-[0_1px_0_hsl(var(--border))]"
-          : "bg-transparent"
+          ? "bg-foreground/95 backdrop-blur-md shadow-lg border-b border-border/10"
+          : "bg-foreground"
           }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex items-center justify-between h-[120px] md:h-20">
@@ -66,7 +66,7 @@ const Navbar = () => {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-sm font-medium tracking-[0.15em] uppercase text-foreground transition-colors duration-300 hover:text-gold"
+                className="text-sm font-medium tracking-[0.15em] uppercase text-primary-foreground transition-colors duration-300 hover:text-gold"
               >
                 {link.label}
               </a>
@@ -75,7 +75,7 @@ const Navbar = () => {
 
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden text-foreground"
+            className="md:hidden text-primary-foreground"
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -88,7 +88,7 @@ const Navbar = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 bg-background pt-24 px-8 md:hidden"
+            className="fixed inset-0 z-40 bg-foreground pt-24 px-8 md:hidden"
           >
             <div className="flex flex-col gap-6">
               {navLinks.map((link) => (
@@ -96,7 +96,7 @@ const Navbar = () => {
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="font-serif text-2xl text-foreground hover:text-gold transition-colors"
+                  className="font-serif text-2xl text-primary-foreground hover:text-gold transition-colors"
                 >
                   {link.label}
                 </a>
