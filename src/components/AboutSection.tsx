@@ -54,6 +54,7 @@ const AboutSection = () => {
                 loop
                 playsInline
                 className="w-full h-auto object-cover aspect-video"
+                style={{ objectPosition: "50% 25%" }}
               />
               {/* Gold border accent */}
               <div className="absolute inset-0 border-2 border-gold/20 pointer-events-none" />

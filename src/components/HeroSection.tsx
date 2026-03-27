@@ -47,6 +47,7 @@ const ShimmerCard = ({ src, alt, delay }: { src: string; alt: string; delay: num
         src={src}
         alt={alt}
         className="w-full h-full object-cover"
+        style={{ objectPosition: "50% 25%" }}
         initial={{ filter: "blur(18px) saturate(0.3)", scale: 1.15 }}
         animate={revealed ? { filter: "blur(0px) saturate(1)", scale: 1 } : {}}
         transition={{ duration: 1.8, delay: 0.2, ease }}

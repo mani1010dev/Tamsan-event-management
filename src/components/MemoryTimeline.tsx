@@ -68,6 +68,7 @@ const MemoryTimeline = () => {
                     src={step.image}
                     alt={step.title}
                     className="w-full h-full object-cover"
+                    style={{ objectPosition: "50% 25%" }}
                     loading="lazy"
                   />
                   <div className="absolute top-4 left-4 bg-gold text-accent-foreground text-xs font-medium tracking-wider px-3 py-1.5 uppercase">
