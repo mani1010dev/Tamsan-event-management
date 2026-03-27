@@ -21,17 +21,97 @@ export interface EventCategory {
   gallery: string[];
 }
 
+const birthdayImages = [
+  "/birthday/WhatsApp Image 2026-03-26 at 12.01.31 PM.jpeg",
+  "/birthday/WhatsApp Image 2026-03-26 at 12.01.32 PM.jpeg",
+  "/birthday/WhatsApp Image 2026-03-26 at 12.01.33 PM (1).jpeg",
+  "/birthday/WhatsApp Image 2026-03-26 at 12.01.33 PM.jpeg",
+  "/birthday/WhatsApp Image 2026-03-26 at 12.01.34 PM.jpeg",
+  "/birthday/WhatsApp Image 2026-03-26 at 12.01.35 PM (1).jpeg",
+  "/birthday/WhatsApp Image 2026-03-26 at 12.01.36 PM (1).jpeg",
+  "/birthday/WhatsApp Image 2026-03-26 at 12.01.36 PM.jpeg",
+  "/birthday/WhatsApp Image 2026-03-26 at 12.01.37 PM (1).jpeg",
+  "/birthday/WhatsApp Image 2026-03-26 at 12.01.37 PM (2).jpeg",
+  "/birthday/WhatsApp Image 2026-03-26 at 12.01.37 PM.jpeg",
+  "/birthday/WhatsApp Image 2026-03-26 at 12.01.38 PM (1).jpeg",
+  "/birthday/WhatsApp Image 2026-03-26 at 12.01.38 PM.jpeg",
+  "/birthday/WhatsApp Image 2026-03-26 at 12.01.39 PM (1).jpeg",
+  "/birthday/WhatsApp Image 2026-03-26 at 12.01.39 PM (2).jpeg",
+  "/birthday/WhatsApp Image 2026-03-26 at 12.01.40 PM.jpeg"
+];
+
+const photographyImages = [
+  "/photography/WhatsApp Image 2026-03-26 at 9.20.50 PM.jpeg",
+  "/photography/WhatsApp Image 2026-03-26 at 9.20.51 PM.jpeg",
+  "/photography/WhatsApp Image 2026-03-26 at 9.20.52 PM.jpeg",
+  "/photography/WhatsApp Image 2026-03-26 at 9.20.53 PM (1).jpeg",
+  "/photography/WhatsApp Image 2026-03-26 at 9.20.53 PM.jpeg",
+  "/photography/WhatsApp Image 2026-03-26 at 9.20.56 PM (1).jpeg",
+  "/photography/WhatsApp Image 2026-03-26 at 9.20.56 PM.jpeg",
+  "/photography/WhatsApp Image 2026-03-26 at 9.20.57 PM.jpeg",
+  "/photography/WhatsApp Image 2026-03-26 at 9.20.59 PM (1).jpeg",
+  "/photography/WhatsApp Image 2026-03-26 at 9.20.59 PM.jpeg"
+];
+
+const engagementImages = [
+  "/engagement/WhatsApp Image 2026-03-26 at 8.29.46 PM.jpeg",
+  "/engagement/WhatsApp Image 2026-03-26 at 8.29.47 PM (1).jpeg",
+  "/engagement/WhatsApp Image 2026-03-26 at 8.29.47 PM (2).jpeg",
+  "/engagement/WhatsApp Image 2026-03-26 at 8.29.47 PM.jpeg",
+  "/engagement/WhatsApp Image 2026-03-26 at 8.29.48 PM.jpeg",
+  "/engagement/WhatsApp Image 2026-03-26 at 8.29.49 PM (1).jpeg",
+  "/engagement/WhatsApp Image 2026-03-26 at 8.29.49 PM.jpeg"
+];
+
+const cateringImages = [
+  "/catering/WhatsApp Image 2026-03-26 at 12.01.22 PM.jpeg",
+  "/catering/WhatsApp Image 2026-03-26 at 12.01.23 PM (1).jpeg",
+  "/catering/WhatsApp Image 2026-03-26 at 12.01.23 PM.jpeg",
+  "/catering/WhatsApp Image 2026-03-26 at 12.01.25 PM (1).jpeg",
+  "/catering/WhatsApp Image 2026-03-26 at 12.01.25 PM.jpeg",
+  "/catering/WhatsApp Image 2026-03-26 at 12.01.27 PM.jpeg",
+  "/catering/WhatsApp Image 2026-03-26 at 12.03.46 PM.jpeg",
+  "/catering/WhatsApp Image 2026-03-26 at 12.03.47 PM (3).jpeg",
+  "/catering/WhatsApp Image 2026-03-26 at 6.21.23 PM (2).jpeg",
+  "/catering/WhatsApp Image 2026-03-26 at 6.21.24 PM (1).jpeg",
+  "/catering/WhatsApp Image 2026-03-26 at 6.21.24 PM (2).jpeg",
+  "/catering/WhatsApp Image 2026-03-26 at 6.21.25 PM (1).jpeg",
+  "/catering/WhatsApp Image 2026-03-26 at 6.21.25 PM.jpeg"
+];
+
+const corporateImages = [
+  "/event/WhatsApp Image 2026-03-26 at 6.21.22 PM (1).jpeg",
+  "/event/WhatsApp Image 2026-03-26 at 6.21.23 PM.jpeg",
+  "/event/WhatsApp Image 2026-03-26 at 6.21.24 PM.jpeg",
+  "/event/WhatsApp Image 2026-03-26 at 6.21.26 PM (1).jpeg",
+  "/event/WhatsApp Image 2026-03-26 at 6.27.39 PM (1).jpeg",
+  "/event/WhatsApp Image 2026-03-26 at 6.27.39 PM.jpeg",
+  "/event/WhatsApp Image 2026-03-26 at 6.27.40 PM (1).jpeg",
+  "/event/WhatsApp Image 2026-03-26 at 6.27.40 PM (2).jpeg",
+  "/event/WhatsApp Image 2026-03-26 at 6.27.40 PM.jpeg"
+];
+
+const gamingImages = [
+  "/game/7850f3ba-3058-49ec-90d7-c365d881fe00.jfif",
+  "/game/WhatsApp Image 2026-03-26 at 8.00.13 PM (1).jpeg",
+  "/game/WhatsApp Image 2026-03-26 at 8.00.13 PM.jpeg",
+  "/game/WhatsApp Image 2026-03-26 at 8.00.15 PM.jpeg",
+  "/game/WhatsApp Image 2026-03-26 at 8.29.33 PM.jpeg",
+  "/game/WhatsApp Image 2026-03-26 at 8.29.34 PM (1).jpeg",
+  "/game/WhatsApp Image 2026-03-26 at 8.29.34 PM.jpeg",
+  "/game/WhatsApp Image 2026-03-26 at 8.29.35 PM.jpeg"
+];
+
 export const categories: EventCategory[] = [
   { id: "wedding-reception", name: "Wedding & Reception", image: "/wedding & reception/1000010526.jpg.jpeg", description: "Timeless ceremonies crafted with elegance and love. Grand receptions that leave lasting impressions. We bring your dream day to life with meticulous attention to every detail, stunning décor, and seamless coordination.", icon: "💍", gallery: ["/wedding & reception/1000010526.jpg.jpeg", "/wedding & reception/1000018802.jpg.jpeg", "/wedding & reception/1000041795.jpg.jpeg", "/wedding & reception/1000041799.jpg.jpeg", "/wedding & reception/1000041966.jpg.jpeg", "/wedding & reception/1000042017.jpg.jpeg", "/wedding & reception/1000042020.jpg.jpeg", "/wedding & reception/1000062648.jpg.jpeg", "/wedding & reception/1000062650.jpg.jpeg", "/wedding & reception/1000077433.jpg.jpeg", "/wedding & reception/1000078948.jpg.jpeg", "/wedding & reception/1000079406.jpg.jpeg", "/wedding & reception/1000079719.jpg.jpeg", "/wedding & reception/1000080380.jpg.jpeg", "/wedding & reception/1000160466.jpg.jpeg", "/wedding & reception/1000160472.jpg.jpeg", "/wedding & reception/1000160474.jpg.jpeg", "/wedding & reception/1000160480.jpg.jpeg", "/wedding & reception/1000196775.jpg.jpeg", "/wedding & reception/1000196776.jpg.jpeg", "/wedding & reception/1000196780.jpg.jpeg", "/wedding & reception/1000196782.jpg.jpeg", "/wedding & reception/1000253925.jpg.jpeg"] },
-  { id: "birthday", name: "Birthday", image: "/birthday-cake/1000041981.jpg.jpeg", description: "Milestone celebrations made extraordinary. Whether it's a first birthday or a golden jubilee, we design memorable experiences tailored to your vision.", icon: "🎂", gallery: ["/birthday-cake/1000041981.jpg.jpeg", "/birthday-cake/1000042404.jpg.jpeg", "/birthday-cake/1000042529.jpg.jpeg", "/birthday-cake/IMG_20250824_115149.jpg.jpeg", "/birthday-cake/IMG_20250824_115156.jpg.jpeg", "/birthday-cake/IMG_20250824_115204.jpg.jpeg"] },
-  { id: "engagement", name: "Engagement", image: catEngagement, description: "Romantic beginnings designed to perfection. We create breathtaking settings for one of life's most cherished moments.", icon: "💐", gallery: [catEngagement, catWedding, catPhotography, catCoupleEntry] },
-  { id: "corporate", name: "Corporate Event", image: catCorporate, description: "Professional gatherings with refined execution. From product launches to annual galas, we deliver flawless corporate experiences.", icon: "🏢", gallery: [catCorporate, catCatering, catStalls, catPhotography] },
-
-  { id: "photography", name: "Photography", image: catPhotography, description: "Every moment captured with artistry. Our photography services ensure your precious memories are preserved beautifully.", icon: "📸", gallery: [catPhotography, catWedding, catEngagement, catBirthday] },
-  { id: "catering-stalls", name: "Catering & Stalls", image: catCatering, description: "Exquisite culinary experiences and curated vendor setups for your guests. From multi-course fine dining to interactive stalls, photo booths, and food carts, we curate experiences that delight.", icon: "🍽️", gallery: [catCatering, catStalls, catCakes, catReception, catCorporate, catGaming] },
+  { id: "birthday", name: "Birthday", image: birthdayImages[0], description: "Milestone celebrations made extraordinary. Whether it's a first birthday or a golden jubilee, we design memorable experiences tailored to your vision.", icon: "🎂", gallery: birthdayImages },
+  { id: "engagement", name: "Engagement", image: engagementImages[0], description: "Romantic beginnings designed to perfection. We create breathtaking settings for one of life's most cherished moments.", icon: "💐", gallery: engagementImages },
+  { id: "corporate", name: "Corporate Event", image: corporateImages[0], description: "Professional gatherings with refined execution. From product launches to annual galas, we deliver flawless corporate experiences.", icon: "🏢", gallery: corporateImages },
+  { id: "photography", name: "Photography", image: photographyImages[0], description: "Every moment captured with artistry. Our photography services ensure your precious memories are preserved beautifully.", icon: "📸", gallery: photographyImages },
+  { id: "catering-stalls", name: "Catering & Stalls", image: cateringImages[0], description: "Exquisite culinary experiences and curated vendor setups for your guests. From multi-course fine dining to interactive stalls, photo booths, and food carts, we curate experiences that delight.", icon: "🍽️", gallery: cateringImages },
   { id: "cakes", name: "Cakes", image: "/birthday-cake/1000042529.jpg.jpeg", description: "Stunning confections that are works of art. Custom-designed cakes that are as beautiful as they are delicious.", icon: "🎂", gallery: ["/birthday-cake/1000041981.jpg.jpeg", "/birthday-cake/1000042404.jpg.jpeg", "/birthday-cake/1000042529.jpg.jpeg", "/birthday-cake/IMG_20250824_115149.jpg.jpeg", "/birthday-cake/IMG_20250824_115156.jpg.jpeg", "/birthday-cake/IMG_20250824_115204.jpg.jpeg"] },
   { id: "couple-baby-entry", name: "Couple & Baby Entry", image: catCoupleEntry, description: "Dramatic entrances and magical welcomes. We choreograph show-stopping couple entries and tender baby entry ceremonies that your guests will never forget.", icon: "✨", gallery: [catCoupleEntry, catBabyEntry, catWedding, catBirthday, catReception, catEngagement, catPuberty] },
-  { id: "gaming", name: "Gaming & Entertainment", image: catGaming, description: "Interactive fun for all ages. We bring the excitement with gaming zones, live entertainment, and engaging activities.", icon: "🎮", gallery: [catGaming, catStalls, catBirthday] },
+  { id: "gaming", name: "Gaming & Entertainment", image: gamingImages[0], description: "Interactive fun for all ages. We bring the excitement with gaming zones, live entertainment, and engaging activities.", icon: "🎮", gallery: gamingImages },
   { id: "traditional", name: "Traditional Events", image: catPuberty, description: "Celebrating tradition with modern elegance. A beautiful blend of cultural customs and contemporary style for your traditional ceremonies and rites of passage.", icon: "🌸", gallery: [catPuberty, catBabyEntry, catCatering, catPhotography] },
 ];
 
