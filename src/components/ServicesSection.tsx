@@ -344,7 +344,7 @@ const ServicesSection = () => {
             </div>
 
             {/* Mobile Swipe Hint */}
-            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/30 text-[10px] tracking-widest uppercase md:hidden flex flex-col items-center gap-2">
+            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/30 text-[10px] tracking-widest uppercase md:hidden flex flex-col items-center gap-2 pointer-events-none">
               <div className="flex gap-4">
                  <span>← Swipe</span>
                  <span>Swipe →</span>
