@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { X, ZoomIn, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ZoomIn, ArrowRight } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 import { categories } from "@/lib/eventData";
 
@@ -67,32 +67,8 @@ const TiltCard = ({
 const ServicesSection = () => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
   const selected = categories.find((c) => c.id === selectedId);
-
-  const handlePrev = (e?: React.MouseEvent) => {
-    e?.stopPropagation();
-    if (selected && lightboxIndex !== null) {
-      setLightboxIndex((prev) => (prev !== null ? (prev - 1 + selected.gallery.length) % selected.gallery.length : null));
-    }
-  };
-
-  const handleNext = (e?: React.MouseEvent) => {
-    e?.stopPropagation();
-    if (selected && lightboxIndex !== null) {
-      setLightboxIndex((prev) => (prev !== null ? (prev + 1) % selected.gallery.length : null));
-    }
-  };
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (lightboxIndex === null) return;
-      if (e.key === "ArrowLeft") handlePrev();
-      if (e.key === "ArrowRight") handleNext();
-      if (e.key === "Escape") setLightboxIndex(null);
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [lightboxIndex, selected]);
 
   // Define Bento grid spans for 14 items
   const getBentoSpans = (index: number) => {
@@ -109,6 +85,20 @@ const ServicesSection = () => {
       { col: "sm:col-span-2", row: "sm:row-span-1" }, // 9: Puberty
     ];
     return spans[index] || { col: "sm:col-span-1", row: "sm:row-span-1" };
+  };
+
+  const handleNext = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (selected && lightboxIndex !== null) {
+      setLightboxIndex((lightboxIndex + 1) % selected.gallery.length);
+    }
+  };
+
+  const handlePrev = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (selected && lightboxIndex !== null) {
+      setLightboxIndex((lightboxIndex - 1 + selected.gallery.length) % selected.gallery.length);
+    }
   };
 
   return (
@@ -292,59 +282,65 @@ const ServicesSection = () => {
         )}
       </AnimatePresence>
 
-      {/* Lightbox with Navigation */}
-      <AnimatePresence mode="wait">
+      {/* Lightbox with Navigation & Swipe */}
+      <AnimatePresence>
         {lightboxIndex !== null && selected && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-black/98 flex items-center justify-center p-4 md:p-12"
+            className="fixed inset-0 z-[60] bg-black/95 backdrop-blur-sm flex items-center justify-center cursor-pointer"
             onClick={() => setLightboxIndex(null)}
           >
-            {/* Close */}
+            {/* Close Button - More visible and positioned lower */}
             <button 
-              className="absolute top-6 right-6 z-[70] p-2 hover:bg-white/10 rounded-full transition-colors"
+              className="absolute top-8 right-8 md:top-12 md:right-12 text-white/70 hover:text-white transition-colors z-[70] bg-white/10 p-2 rounded-full backdrop-blur-md border border-white/20"
               onClick={() => setLightboxIndex(null)}
             >
-              <X size={32} className="text-white" />
+              <X size={28} />
             </button>
 
-            {/* Navigation Buttons */}
-            <div className="absolute inset-x-4 md:inset-x-10 top-1/2 -translate-y-1/2 flex justify-between z-[70] pointer-events-none">
-              <button
-                onClick={handlePrev}
-                className="p-3 md:p-4 bg-black/40 hover:bg-gold/80 text-white backdrop-blur-md border border-white/10 transition-all pointer-events-auto group"
-              >
-                <ChevronLeft size={32} className="group-hover:scale-110 transition-transform" />
-              </button>
-              <button
-                onClick={handleNext}
-                className="p-3 md:p-4 bg-black/40 hover:bg-gold/80 text-white backdrop-blur-md border border-white/10 transition-all pointer-events-auto group"
-              >
-                <ChevronRight size={32} className="group-hover:scale-110 transition-transform" />
-              </button>
-            </div>
+            {/* Navigation Buttons - Desktop */}
+            <button
+              className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 z-[70] p-3 rounded-full bg-white/5 hover:bg-white/10 text-white transition-all hidden md:flex border border-white/10"
+              onClick={handlePrev}
+            >
+              <ArrowRight size={24} className="rotate-180" />
+            </button>
+            <button
+              className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 z-[70] p-3 rounded-full bg-white/5 hover:bg-white/10 text-white transition-all hidden md:flex border border-white/10"
+              onClick={handleNext}
+            >
+              <ArrowRight size={24} />
+            </button>
 
-            {/* Image Container */}
-            <div className="relative w-full h-full flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+            {/* Main Image with Swipe Support */}
+            <div className="relative w-full h-full flex items-center justify-center p-4">
               <motion.img
                 key={lightboxIndex}
                 initial={{ opacity: 0, scale: 0.9, x: 20 }}
                 animate={{ opacity: 1, scale: 1, x: 0 }}
                 exit={{ opacity: 0, scale: 0.9, x: -20 }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                onDragEnd={(_, info) => {
+                  if (info.offset.x > 100) handlePrev();
+                  else if (info.offset.x < -100) handleNext();
+                }}
                 src={selected.gallery[lightboxIndex]}
                 alt="Gallery preview"
-                className="max-sm:w-full max-h-full object-contain shadow-2xl"
+                className="max-w-full max-h-[85vh] object-contain shadow-2xl pointer-events-none select-none md:pointer-events-auto"
               />
-              
-              {/* Counter label */}
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 bg-black/50 backdrop-blur-md rounded-full border border-white/10">
-                <span className="text-white/90 text-sm font-medium tracking-widest uppercase">
-                  {lightboxIndex + 1} / {selected.gallery.length}
-                </span>
+            </div>
+
+            {/* Mobile Swipe Hint */}
+            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/30 text-[10px] tracking-widest uppercase md:hidden flex flex-col items-center gap-2">
+              <div className="flex gap-4">
+                 <span>← Swipe</span>
+                 <span>Swipe →</span>
               </div>
+              <span>Tap background to exit</span>
             </div>
           </motion.div>
         )}
