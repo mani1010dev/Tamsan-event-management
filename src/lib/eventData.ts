@@ -19,6 +19,7 @@ export interface EventCategory {
   description: string;
   icon: string;
   gallery: string[];
+  objectPosition?: string;
 }
 
 const birthdayImages = [
@@ -48,7 +49,12 @@ const photographyImages = [
   "/photography/WhatsApp Image 2026-03-26 at 9.20.56 PM.jpeg",
   "/photography/WhatsApp Image 2026-03-26 at 9.20.57 PM.jpeg",
   "/photography/WhatsApp Image 2026-03-26 at 9.20.59 PM (1).jpeg",
-  "/photography/WhatsApp Image 2026-03-26 at 9.20.59 PM.jpeg"
+  "/photography/WhatsApp Image 2026-03-26 at 9.20.59 PM.jpeg",
+  "/photography/WhatsApp Image 2026-03-27 at 5.50.41 PM (1).jpeg",
+  "/photography/WhatsApp Image 2026-03-27 at 5.50.41 PM (2).jpeg",
+  "/photography/WhatsApp Image 2026-03-27 at 5.50.41 PM.jpeg",
+  "/photography/WhatsApp Image 2026-03-27 at 5.52.06 PM.jpeg",
+  "/photography/WhatsApp Image 2026-03-27 at 5.52.09 PM (1).jpeg"
 ];
 
 const engagementImages = [
@@ -138,15 +144,17 @@ const traditionalImages = [
 ];
 
 const coupleBabyEntryImages = [
-  "/entry/WhatsApp Image 2026-03-26 at 9.20.52 PM.jpeg",
-  "/entry/WhatsApp Image 2026-03-26 at 9.20.53 PM (1).jpeg",
-  "/entry/WhatsApp Image 2026-03-26 at 9.20.57 PM.jpeg",
-  "/entry/WhatsApp Image 2026-03-27 at 5.52.05 PM.jpeg",
-  "/entry/WhatsApp Image 2026-03-27 at 5.52.06 PM.jpeg",
-  "/entry/WhatsApp Image 2026-03-27 at 5.52.08 PM (1).jpeg",
-  "/entry/WhatsApp Image 2026-03-27 at 5.52.08 PM.jpeg",
-  "/entry/WhatsApp Image 2026-03-27 at 5.52.09 PM (1).jpeg",
-  "/entry/WhatsApp Image 2026-03-27 at 5.52.09 PM.jpeg"
+  "/entry/WhatsApp Image 2026-03-28 at 10.30.29 AM.jpeg",
+  "/entry/WhatsApp Image 2026-03-28 at 10.30.30 AM (1).jpeg",
+  "/entry/WhatsApp Image 2026-03-28 at 10.30.30 AM.jpeg",
+  "/entry/WhatsApp Image 2026-03-28 at 10.30.51 AM (1).jpeg",
+  "/entry/WhatsApp Image 2026-03-28 at 10.30.51 AM.jpeg",
+  "/entry/WhatsApp Image 2026-03-28 at 10.30.52 AM (1).jpeg",
+  "/entry/WhatsApp Image 2026-03-28 at 10.30.52 AM.jpeg",
+  "/entry/WhatsApp Image 2026-03-28 at 10.30.53 AM (1).jpeg",
+  "/entry/WhatsApp Image 2026-03-28 at 10.30.53 AM (2).jpeg",
+  "/entry/WhatsApp Image 2026-03-28 at 10.30.53 AM.jpeg",
+  "/entry/WhatsApp Image 2026-03-28 at 10.30.54 AM.jpeg"
 ];
 
 export const categories: EventCategory[] = [
@@ -157,7 +165,7 @@ export const categories: EventCategory[] = [
   { id: "photography", name: "Photography", image: photographyImages[0], description: "Every moment captured with artistry. Our photography services ensure your precious memories are preserved beautifully.", icon: "📸", gallery: photographyImages },
   { id: "catering-stalls", name: "Catering & Stalls", image: cateringImages[0], description: "Exquisite culinary experiences and curated vendor setups for your guests. From multi-course fine dining to interactive stalls, photo booths, and food carts, we curate experiences that delight.", icon: "🍽️", gallery: cateringImages },
   { id: "cakes", name: "Cakes", image: cakeImages[0], description: "Stunning confections that are works of art. Custom-designed cakes that are as beautiful as they are delicious.", icon: "🎂", gallery: cakeImages },
-  { id: "couple-baby-entry", name: "Couple & Baby Entry", image: coupleBabyEntryImages[0], description: "Dramatic entrances and magical welcomes. We choreograph show-stopping couple entries and tender baby entry ceremonies that your guests will never forget.", icon: "✨", gallery: coupleBabyEntryImages },
+  { id: "couple-baby-entry", name: "Couple & Baby Entry", image: coupleBabyEntryImages[0], description: "Dramatic entrances and magical welcomes. We choreograph show-stopping couple entries and tender baby entry ceremonies that your guests will never forget.", icon: "✨", gallery: coupleBabyEntryImages, objectPosition: "50% 0%" },
   { id: "gaming", name: "Gaming & Entertainment", image: gamingImages[0], description: "Interactive fun for all ages. We bring the excitement with gaming zones, live entertainment, and engaging activities.", icon: "🎮", gallery: gamingImages },
   { id: "traditional", name: "Traditional Events", image: traditionalImages[0], description: "Celebrating tradition with modern elegance. A beautiful blend of cultural customs and contemporary style for your traditional ceremonies and rites of passage.", icon: "🌸", gallery: traditionalImages },
 ];

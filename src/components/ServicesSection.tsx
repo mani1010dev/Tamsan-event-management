@@ -117,7 +117,7 @@ const ServicesSection = () => {
                       src={service.image}
                       alt={service.name}
                       className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
-                      style={{ objectPosition: "50% 25%" }}
+                      style={{ objectPosition: service.objectPosition || "50% 25%" }}
                       loading="lazy"
                     />
                     
@@ -245,7 +245,7 @@ const ServicesSection = () => {
                           src={img}
                           alt={`${selected.name} ${idx + 1}`}
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                          style={{ objectPosition: "50% 25%" }}
+                          style={{ objectPosition: selected.objectPosition || "50% 25%" }}
                           loading="lazy"
                         />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
