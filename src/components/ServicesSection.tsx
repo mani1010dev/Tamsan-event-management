@@ -1,6 +1,6 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { X, ZoomIn, ArrowRight } from "lucide-react";
+import { X, ZoomIn, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 import { categories } from "@/lib/eventData";
 
@@ -66,9 +66,33 @@ const TiltCard = ({
 
 const ServicesSection = () => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
-
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const selected = categories.find((c) => c.id === selectedId);
+
+  const handlePrev = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (selected && lightboxIndex !== null) {
+      setLightboxIndex((prev) => (prev !== null ? (prev - 1 + selected.gallery.length) % selected.gallery.length : null));
+    }
+  };
+
+  const handleNext = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (selected && lightboxIndex !== null) {
+      setLightboxIndex((prev) => (prev !== null ? (prev + 1) % selected.gallery.length : null));
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (lightboxIndex === null) return;
+      if (e.key === "ArrowLeft") handlePrev();
+      if (e.key === "ArrowRight") handleNext();
+      if (e.key === "Escape") setLightboxIndex(null);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [lightboxIndex, selected]);
 
   // Define Bento grid spans for 14 items
   const getBentoSpans = (index: number) => {
@@ -239,7 +263,7 @@ const ServicesSection = () => {
                         transition={{ delay: 0.1 + idx * 0.05, type: "spring" }}
                         whileHover={{ y: -5 }}
                         className="group relative cursor-pointer overflow-hidden aspect-[4/3] bg-muted/20 border border-border"
-                        onClick={() => setLightboxImage(img)}
+                        onClick={() => setLightboxIndex(idx)}
                       >
                         <img
                           src={img}
@@ -268,28 +292,60 @@ const ServicesSection = () => {
         )}
       </AnimatePresence>
 
-      {/* Lightbox (Remains the same but with spring) */}
-      <AnimatePresence>
-        {lightboxImage && (
+      {/* Lightbox with Navigation */}
+      <AnimatePresence mode="wait">
+        {lightboxIndex !== null && selected && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-black/98 flex items-center justify-center p-6 cursor-pointer"
-            onClick={() => setLightboxImage(null)}
+            className="fixed inset-0 z-[60] bg-black/98 flex items-center justify-center p-4 md:p-12"
+            onClick={() => setLightboxIndex(null)}
           >
-            <motion.img
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 220, damping: 20 }}
-              src={lightboxImage}
-              alt="Gallery preview"
-              className="max-w-full max-h-full object-contain"
-            />
-            <button className="absolute top-6 right-6">
+            {/* Close */}
+            <button 
+              className="absolute top-6 right-6 z-[70] p-2 hover:bg-white/10 rounded-full transition-colors"
+              onClick={() => setLightboxIndex(null)}
+            >
               <X size={32} className="text-white" />
             </button>
+
+            {/* Navigation Buttons */}
+            <div className="absolute inset-x-4 md:inset-x-10 top-1/2 -translate-y-1/2 flex justify-between z-[70] pointer-events-none">
+              <button
+                onClick={handlePrev}
+                className="p-3 md:p-4 bg-black/40 hover:bg-gold/80 text-white backdrop-blur-md border border-white/10 transition-all pointer-events-auto group"
+              >
+                <ChevronLeft size={32} className="group-hover:scale-110 transition-transform" />
+              </button>
+              <button
+                onClick={handleNext}
+                className="p-3 md:p-4 bg-black/40 hover:bg-gold/80 text-white backdrop-blur-md border border-white/10 transition-all pointer-events-auto group"
+              >
+                <ChevronRight size={32} className="group-hover:scale-110 transition-transform" />
+              </button>
+            </div>
+
+            {/* Image Container */}
+            <div className="relative w-full h-full flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+              <motion.img
+                key={lightboxIndex}
+                initial={{ opacity: 0, scale: 0.9, x: 20 }}
+                animate={{ opacity: 1, scale: 1, x: 0 }}
+                exit={{ opacity: 0, scale: 0.9, x: -20 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                src={selected.gallery[lightboxIndex]}
+                alt="Gallery preview"
+                className="max-sm:w-full max-h-full object-contain shadow-2xl"
+              />
+              
+              {/* Counter label */}
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 bg-black/50 backdrop-blur-md rounded-full border border-white/10">
+                <span className="text-white/90 text-sm font-medium tracking-widest uppercase">
+                  {lightboxIndex + 1} / {selected.gallery.length}
+                </span>
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
