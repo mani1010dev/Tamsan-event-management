@@ -47,7 +47,7 @@ const AboutSection = () => {
           {/* Image + closing paragraphs */}
           <ScrollReveal direction="left">
             <div className="space-y-6 lg:space-y-8">
-              <div className="relative overflow-hidden shadow-2xl aspect-[4/5] lg:aspect-square">
+              <div className="relative overflow-hidden shadow-2xl aspect-[4/5] lg:aspect-square max-w-sm mx-0 lg:mx-auto">
                 <img
                   src="/about.jpeg"
                   alt="About Tamsan Event Management"
@@ -61,11 +61,9 @@ const AboutSection = () => {
 
               <div className="space-y-6">
                 <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
-                  What truly sets us apart is our commitment to excellence and our keen attention to detail. We don’t just organize events — we craft meaningful experiences that reflect your story and leave lasting impressions.
+                  Founded in 2019 by Sandhiya, <strong className="text-gold font-branding">Tamsan Event Management</strong> has grown into a trusted name in the event industry, known for delivering exceptional experiences with a strong focus on quality, creativity, and client satisfaction. Our journey is built on a foundation of trust, dedication, and a passion for turning visions into reality.
                 </p>
-                <p className="text-muted-foreground text-sm md:text-base leading-relaxed italic">
-                  The trust and loyalty of our clients are the greatest milestones in our journey, inspiring us to deliver even better with every event we create.
-                </p>
+
                 <div className="pt-4 border-t border-gold/20">
                   <p className="text-gold font-serif text-lg md:text-xl italic">
                     At Tamsan Event Management, we don’t just plan events — we create memories that last a lifetime.
@@ -85,7 +83,10 @@ const AboutSection = () => {
                 At the heart of every unforgettable celebration is a team that understands emotions, details, and perfection — and that’s exactly what we stand for.
               </p>
               <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
-                Founded in 2019 by Sandhiya, <strong className="text-gold font-branding">Tamsan Event Management</strong> has grown into a trusted name in the event industry, known for delivering exceptional experiences with a strong focus on quality, creativity, and client satisfaction. Our journey is built on a foundation of trust, dedication, and a passion for turning visions into reality.
+                What truly sets us apart is our commitment to excellence and our keen attention to detail. We don’t just organize events — we craft meaningful experiences that reflect your story and leave lasting impressions.
+              </p>
+              <p className="text-muted-foreground text-sm md:text-base leading-relaxed italic">
+                The trust and loyalty of our clients are the greatest milestones in our journey, inspiring us to deliver even better with every event we create.
               </p>
               <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
                 We specialize in end-to-end event planning, offering A to Z services tailored to meet every client’s unique needs. From traditional celebrations and elegant weddings to surprise events, birthdays, corporate gatherings, and baby showers — we handle every detail with precision and care. To ensure a seamless experience, we also provide premium catering services and professional photography, bringing everything you need under one roof.
