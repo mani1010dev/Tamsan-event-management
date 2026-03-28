@@ -290,7 +290,9 @@ const ServicesSection = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[60] bg-black/95 backdrop-blur-sm flex items-center justify-center cursor-pointer"
-            onClick={() => setLightboxIndex(null)}
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setLightboxIndex(null);
+            }}
           >
             {/* Close Button - More visible and positioned lower */}
             <button 
@@ -326,11 +328,11 @@ const ServicesSection = () => {
                 dragConstraints={{ left: 0, right: 0 }}
                 dragElastic={0.2}
                 onDragEnd={(_, info) => {
-                  if (info.offset.x > 80) handlePrev();
-                  else if (info.offset.x < -80) handleNext();
+                  if (info.offset.x > 50) handlePrev();
+                  else if (info.offset.x < -50) handleNext();
                 }}
                 className="max-w-full max-h-[85vh] relative"
-                onClick={(e) => e.stopPropagation()} // Prevent close on image tap
+                style={{ touchAction: "none" }}
               >
                 <img
                   src={selected.gallery[lightboxIndex]}
