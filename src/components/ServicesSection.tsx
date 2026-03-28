@@ -316,7 +316,7 @@ const ServicesSection = () => {
 
             {/* Main Image with Swipe Support */}
             <div className="relative w-full h-full flex items-center justify-center p-4">
-              <motion.img
+              <motion.div
                 key={lightboxIndex}
                 initial={{ opacity: 0, scale: 0.9, x: 20 }}
                 animate={{ opacity: 1, scale: 1, x: 0 }}
@@ -324,14 +324,21 @@ const ServicesSection = () => {
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
                 onDragEnd={(_, info) => {
-                  if (info.offset.x > 100) handlePrev();
-                  else if (info.offset.x < -100) handleNext();
+                  if (info.offset.x > 80) handlePrev();
+                  else if (info.offset.x < -80) handleNext();
                 }}
-                src={selected.gallery[lightboxIndex]}
-                alt="Gallery preview"
-                className="max-w-full max-h-[85vh] object-contain shadow-2xl pointer-events-none select-none md:pointer-events-auto"
-              />
+                className="max-w-full max-h-[85vh] relative"
+                onClick={(e) => e.stopPropagation()} // Prevent close on image tap
+              >
+                <img
+                  src={selected.gallery[lightboxIndex]}
+                  alt="Gallery preview"
+                  className="w-full h-full object-contain shadow-2xl select-none"
+                  draggable={false}
+                />
+              </motion.div>
             </div>
 
             {/* Mobile Swipe Hint */}
