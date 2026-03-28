@@ -41,7 +41,7 @@ const Navbar = () => {
               style={{ filter: "drop-shadow(0 0 10px rgba(212, 175, 55, 0.8))" }}
             />
             <div className="flex flex-col md:flex-row md:items-baseline md:gap-3 font-serif">
-              <span className="font-serif text-3xl md:text-3xl font-bold tracking-tight text-white whitespace-nowrap leading-none">
+              <span className="font-serif text-3xl md:text-3xl font-black tracking-tight text-white whitespace-nowrap leading-none">
                 Tamsan
               </span>
               <span className="font-serif text-lg md:text-2xl font-normal text-gold md:tracking-normal mt-1 md:mt-0 whitespace-nowrap">
