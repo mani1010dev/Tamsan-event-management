@@ -47,7 +47,7 @@ const AboutSection = () => {
           {/* Image + closing paragraphs */}
           <ScrollReveal direction="left">
             <div className="space-y-6 lg:space-y-8">
-              <div className="relative overflow-hidden shadow-2xl aspect-[4/5] lg:aspect-square max-w-sm mx-0 lg:mx-auto">
+              <div className="relative overflow-hidden shadow-2xl aspect-[4/5] lg:aspect-square max-w-sm mx-auto">
                 <img
                   src="/about.jpeg"
                   alt="About Tamsan Event Management"
@@ -91,7 +91,7 @@ const AboutSection = () => {
               <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
                 We specialize in end-to-end event planning, offering A to Z services tailored to meet every client’s unique needs. From traditional celebrations and elegant weddings to surprise events, birthdays, corporate gatherings, and baby showers — we handle every detail with precision and care. To ensure a seamless experience, we also provide premium catering services and professional photography, bringing everything you need under one roof.
               </p>
-              <div className="relative overflow-hidden shadow-2xl aspect-video">
+              <div className="relative overflow-hidden shadow-2xl aspect-video max-w-2xl mx-auto lg:mx-0">
                 <video
                   src="/WhatsApp Video 2026-03-25 at 5.56.49 PM.mp4"
                   autoPlay
