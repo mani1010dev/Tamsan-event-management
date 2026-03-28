@@ -7,13 +7,14 @@ const img4 = "/hero section/1000196780.jpg.jpeg";
 const img5 = "/hero section/1000253925.jpg.jpeg";
 const img6 = "/hero section/WhatsApp Image 2026-03-26 at 8.29.47 PM (1).jpeg";
 const img7 = "/hero section/WhatsApp Image 2026-03-26 at 8.29.47 PM.jpeg";
+const img8 = "/hero section/WhatsApp Image 2026-03-26 at 8.29.47 PM (2).jpeg";
 
 type Ease = [number, number, number, number];
 const ease: Ease = [0.16, 1, 0.3, 1];
 
 /* ── Film-reel image sets (two columns, opposite scroll) ── */
-const colA = [img1, img2, img3, img4, img1, img2, img3];
-const colB = [img5, img6, img7, img5, img6, img7];
+const colA = [img1, img2, img3, img4, img1, img2, img3, img4];
+const colB = [img5, img6, img7, img8, img5, img6, img7, img8];
 
 /* ── Shimmer border wrapper ── */
 const ShimmerCard = ({ src, alt, delay }: { src: string; alt: string; delay: number }) => {
