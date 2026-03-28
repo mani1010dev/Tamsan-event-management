@@ -285,39 +285,42 @@ const ServicesSection = () => {
       {/* Lightbox with Navigation & Swipe */}
       <AnimatePresence>
         {lightboxIndex !== null && selected && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-black/95 backdrop-blur-sm flex items-center justify-center cursor-pointer"
-            onClick={(e) => {
-              if (e.target === e.currentTarget) setLightboxIndex(null);
-            }}
-          >
-            {/* Close Button - More visible and positioned lower */}
-            <button 
-              className="absolute top-8 right-8 md:top-12 md:right-12 text-white/70 hover:text-white transition-colors z-[70] bg-white/10 p-2 rounded-full backdrop-blur-md border border-white/20"
-              onClick={() => setLightboxIndex(null)}
-            >
-              <X size={28} />
-            </button>
+          <div className="fixed inset-0 z-[60] flex items-center justify-center overflow-hidden">
+            {/* Dedicated Backdrop - Ensures tap-to-exit is always captured */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-black/95 backdrop-blur-sm cursor-pointer"
+              onTap={() => setLightboxIndex(null)}
+            />
 
-            {/* Navigation Buttons - Desktop */}
-            <button
-              className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 z-[70] p-3 rounded-full bg-white/5 hover:bg-white/10 text-white transition-all hidden md:flex border border-white/10"
-              onClick={handlePrev}
-            >
-              <ArrowRight size={24} className="rotate-180" />
-            </button>
-            <button
-              className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 z-[70] p-3 rounded-full bg-white/5 hover:bg-white/10 text-white transition-all hidden md:flex border border-white/10"
-              onClick={handleNext}
-            >
-              <ArrowRight size={24} />
-            </button>
+            {/* Content Layer (Interactive buttons, image, etc.) */}
+            <div className="relative z-10 w-full h-full flex flex-col items-center justify-center pointer-events-none p-4">
+              
+              {/* Close Button */}
+              <button 
+                className="absolute top-8 right-8 md:top-12 md:right-12 text-white/70 hover:text-white transition-colors z-[70] bg-white/10 p-2 rounded-full backdrop-blur-md border border-white/20 pointer-events-auto"
+                onClick={() => setLightboxIndex(null)}
+              >
+                <X size={28} />
+              </button>
 
-            {/* Main Image with Swipe Support */}
-            <div className="relative w-full h-full flex items-center justify-center p-4">
+              {/* Navigation Buttons - Desktop */}
+              <button
+                className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 z-[70] p-3 rounded-full bg-white/5 hover:bg-white/10 text-white transition-all hidden md:flex border border-white/10 pointer-events-auto"
+                onClick={handlePrev}
+              >
+                <ArrowRight size={24} className="rotate-180" />
+              </button>
+              <button
+                className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 z-[70] p-3 rounded-full bg-white/5 hover:bg-white/10 text-white transition-all hidden md:flex border border-white/10 pointer-events-auto"
+                onClick={handleNext}
+              >
+                <ArrowRight size={24} />
+              </button>
+
+              {/* Draggable Image Container */}
               <motion.div
                 key={lightboxIndex}
                 initial={{ opacity: 0, scale: 0.9, x: 20 }}
@@ -331,7 +334,7 @@ const ServicesSection = () => {
                   if (info.offset.x > 50) handlePrev();
                   else if (info.offset.x < -50) handleNext();
                 }}
-                className="max-w-full max-h-[85vh] relative"
+                className="max-w-full max-h-[85vh] relative pointer-events-auto"
                 style={{ touchAction: "none" }}
               >
                 <img
@@ -341,17 +344,17 @@ const ServicesSection = () => {
                   draggable={false}
                 />
               </motion.div>
-            </div>
 
-            {/* Mobile Swipe Hint */}
-            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/30 text-[10px] tracking-widest uppercase md:hidden flex flex-col items-center gap-2 pointer-events-none">
-              <div className="flex gap-4">
-                 <span>← Swipe</span>
-                 <span>Swipe →</span>
+              {/* Mobile Swipe Hint */}
+              <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/30 text-[10px] tracking-widest uppercase md:hidden flex flex-col items-center gap-2">
+                <div className="flex gap-4">
+                  <span>← Swipe</span>
+                  <span>Swipe →</span>
+                </div>
+                <span>Tap background to exit</span>
               </div>
-              <span>Tap background to exit</span>
             </div>
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </section>
